@@ -1,0 +1,3 @@
+[submodule "themes/stylesimple"]
+	path = themes/stylesimple
+	url = git@github.com:satyamyadav/hexo-stylesimple.git
