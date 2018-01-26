@@ -9,10 +9,10 @@ tags:
 - pelican
 - github
 categories:
-- social
-- web
-- bloging
-- learn
+  - social
+  - web
+  - bloging
+  - learn
 ---
 
 I am not a regular blogger but like to share some hacks.
