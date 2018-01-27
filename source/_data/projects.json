@@ -1,0 +1,74 @@
+[
+	{
+		"title": "learn-together",
+		"summery": "A project and idea sharing web portal for college students, expressjs server with postgres tabel (knex wrapper orm), a expressjs microserver to render frontend written in ejs(partials) and jquery (components) working as single page app",
+		"images": [
+			"/img/projects/ossdg-1.png"
+		],
+		"live_link": "http://learn-together.herokuapp.com",
+		"code_link": "https://github.com/satyamyadav/lt-frontend",
+		"details": [
+			{
+				"Backend": "expressjs postgresql",
+				"Server": "heroku",
+				"Frontend": "expressjs microserver, ejs, jquery",
+				"Styling": "bootstrap sass",
+				"dev tools": "gulp, bower, npm"
+			}
+		]
+	},
+	{
+		"title": "my-resume",
+		"summery": "`Resume` is complex front-end for making portfolio building easy, the site is client side rendered lodash template, jquery app and bootstrap sass. A json file and template is loaded with ajax and then compiled template is appended to body.",
+		"images": [
+			"/img/projects/resume-1.png"
+		],
+		"live_link": "http://satyamyadav.github.io/resume",
+		"code_link": "http://github.com/satyamyadav/resume",
+		"details": [
+			{
+				"Backend": "none",
+				"Server": "github's gh-pages",
+				"Frontend": "jquery lodash template rendering",
+				"Styling": "bootstrap sass",
+				"dev tools": "gulp, bower, npm"
+			}
+		]
+	},
+	{
+		"title": "len-den",
+		"summery": "An app to list and calculate lended money | An app without signup and profile. Html string of components appended, local storage is used to save data.",
+		"images": [
+			"/img/projects/len-den-1.jpg"
+		],
+		"live_link": "http://satyamyadav.github.io/len-den",
+		"code_link": "http://github.com/satyamyadav/len-den",
+		"details": [
+			{
+				"Backend": "none",
+				"Server": "github's gh-pages",
+				"Frontend": "jquery html string rendering",
+				"Styling": "materialize css",
+				"DB": "local storage"
+			}
+		]
+	},
+	{
+		"title": "Blog",
+		"summery": "Best way to learn web development is to build something ! so I started building something when I started learning web.",
+		"images": [
+			"http://satyamyadav.github.io/img/screenshots/030.jpg"
+		],
+		"live_link": "http://satyamyadav.github.io",
+		"code_link": "http://github.com/satyamyadav/blog",
+		"details": [
+			{
+				"Backend": "diffrent for differnt versions",
+				"Server": "github's gh-pages , openshift",
+				"Frontend": "jquery, html",
+				"Styling": "bootstrap, css3",
+				"DB": "sqlite3"
+			}
+		]
+	}
+]
