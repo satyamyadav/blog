@@ -18,18 +18,20 @@ Pipeline operator `|>` is a readable way of writing chained functions. The opera
 
 The pipeline operator provides a syntactic sugar to call a function with single argument.
 
-`expression |> function` 
+```js
+expression |> function 
 
-or call multiple functions as 
+//or call multiple functions as 
 
-`expression |> fn1 |> fn2 |> fn3`
+expression |> fn1 |> fn2 |> fn3
+```
 
 each function gets the result from its preceeding function as input and passes the result to next function i.e. input (argument/expression) is piped through and complete pipeline.
 
 Let's look at some examples :
 
 
-Lets define the `double` and `increment` functions used in each example.
+Defining the `double` and `increment` functions to use in examples.
 
 {% codeblock %}
 
@@ -38,57 +40,92 @@ const increment = n => n + 1;
 
 {% endcodeblock %}
 
+<br>
 **The function(argument) way:**
 
+We can call functions as `g(f(n))` to get our input parameter `n` through the functions `f(n)` and `g(m)`. <br>
+_OR by taking intermediate value as a variable:_
+`var a = f(n);`
+`result = g(n):`
 
 {% codeblock %}
 
-// without chaining
-
 double(increment(double(10)));  //42
+// OR
+
+let a = double(10); //20
+let b = increment(a); //21
+let result = double(b); //42
 
 {% endcodeblock %}
 
-
+<br>
 **using lodash**
+
+Using lodash we can achieve the same (chaining) by using `_.chain()` for inbuilt methods or by `_.mixin()` for using custom methods or by `_.flow()` (functional compositions).
 
 {% codeblock %}
 
 const _ = require('lodash');
 
+// using lodash mixin
+
 _.mixin({'double': double, 'increment': increment});
 
 _(10).double().increment().double().value(); //42
 
+
+// using lodash flow
+
+const doubleIncrementDouble = _.flow([double, increment, double]);
+
+let result = doubleIncrementDouble(10) //42
+
 {% endcodeblock %}
 
-
+<br>
 **es5 utility function**
+
+To write a utility function to do the same for us, we need to define a function (`pipe`) that takes a list (array) of methods (functions) and returns a function which takes only one parameter and reduces the functions array from its parent scope initializing with its parameter.  
+Now as we have a wrapper function `pipe` we can call it as 
+`pipe([fn1, fn2, f3 ...fm])(n)` 
+or
+ we can define different pipes taking list of functions 
+ `var pipeline1 = [double, increment]` 
+ and then call it as 
+ `pipeline1(a)`.
 
 {% codeblock %}
 
 //  pipeline utility
 
-const pipe = functionList => (data) => {
-  return functionList.reduce((value, func) => {
-    return func(value)
-  }, data);
+var pipe = function (functionList) {
+  return function (data) {
+    return functionList.reduce(function(value, func) {
+      return func(value)
+    }, data);
+  }
 }
 
 pipe([double, increment, double])(10); //42
 
 {% endcodeblock %}
 
-
+<br>
 **ESNext pipeline operator**
+`10 |> double |> increment |> double; ` //42
 
-{% codeblock %}
+As we often need to transform some data or clean data for some usages like data visualizations , tabular representations, payload generations etc. we need a utility or use a library like lodash for doing that part only, it is good to have feature in language itself as similar to [F#](https://en.wikibooks.org/wiki/F _Sharp_Programming/Higher_Order_Functions#The_.7C.3E_Operator),  [OCaml](http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#VAL%28|%3E%29),  [Elixir](https://www.safaribooksonline.com/library/view/programming-elixir/9781680500530/f_0057.html),  [Elm](https://edmz.org/design/2015/07/29/elm-lang-notes.html),  [Julia](http://docs.julialang.org/en/release-0.4/stdlib/base/?highlight=|%3E#Base.|%3E),  [Hack](https://docs.hhvm.com/hack/operators/pipe-operator), [LiveScript](http://livescript.net/#piping),  as well as UNIX pipes.
 
-// es6 pipeline operator
+Also as in proposal :
 
-10 |> double |> increment |> double; //42
+...you can use an arrow function to handle multi-argument functions.
 
-{% endcodeblock %}
+--------------------------
+
+`Thank You !!`
+>  Your thoughts , suggestions or corrections are most welcome !!, Please feel free to share them below. 
+I will test some more complex examples and will share If I found anything interesting.
 
 References :
 
