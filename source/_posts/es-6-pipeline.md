@@ -1,6 +1,5 @@
 ---
 title: understanding es6 pipeline O|>erator
-cover: /img/screenshots/es6-pipeline.png
 date: 
 categories:
   - code
