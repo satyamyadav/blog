@@ -45,7 +45,7 @@ const increment = n => n + 1;
 We can call functions as `g(f(n))` to get our input parameter `n` through the functions `f(n)` and `g(m)`. <br>
 _OR by taking intermediate value as a variable:_
 `var a = f(n);`
-`result = g(n):`
+`result = g(a):`
 
 {% codeblock %}
 
