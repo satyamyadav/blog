@@ -49,3 +49,7 @@ workflows:
           filters:
             branches:
               only: master
+
+notify:
+  webhooks:
+    - url: "curl -v -H 'Accept: application/json' -H 'Content-Type: application/json'  -X POST -d 'Blog updated by circleci' https://hooks.zapier.com/hooks/catch/3433198/w2nnnc/"           
