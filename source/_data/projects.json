@@ -18,20 +18,18 @@
 		]
 	},
 	{
-		"title": "my-resume",
-		"summery": "`Resume` is complex front-end for making portfolio building easy, the site is client side rendered lodash template, jquery app and bootstrap sass. A json file and template is loaded with ajax and then compiled template is appended to body.",
+		"title": "postgres-express",
+		"summery": "A nodejs based REST API boilerplate using postgres and express with TDD;",
 		"images": [
 			"/img/projects/resume-1.png"
 		],
-		"live_link": "http://satyamyadav.github.io/resume",
-		"code_link": "http://github.com/satyamyadav/resume",
+		"live_link": "https://github.com/satyamyadav/postgres-express",
+		"code_link": "https://github.com/satyamyadav/postgres-express",
 		"details": [
 			{
-				"Backend": "none",
-				"Server": "github's gh-pages",
-				"Frontend": "jquery lodash template rendering",
-				"Styling": "bootstrap sass",
-				"dev tools": "gulp, bower, npm"
+				"frameworks": "express, tabel",
+				"db": "postgreSQL",
+				"TDD": "mocha, chai"
 			}
 		]
 	},
