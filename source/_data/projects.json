@@ -1,4 +1,20 @@
 [
+  {
+    "title": "postgres-express",
+    "summery": "A nodejs based REST API boilerplate using postgres and express with TDD;",
+    "images": [
+      "/img/projects/ex-psql.png"
+    ],
+    "live_link": "https://github.com/satyamyadav/postgres-express",
+    "code_link": "https://github.com/satyamyadav/postgres-express",
+    "details": [
+      {
+        "frameworks": "express, tabel",
+        "db": "postgreSQL",
+        "TDD": "mocha, chai"
+      }
+    ]
+  },
 	{
 		"title": "learn-together",
 		"summery": "A project and idea sharing web portal for college students, expressjs server with postgres tabel (knex wrapper orm), a expressjs microserver to render frontend written in ejs(partials) and jquery (components) working as single page app",
@@ -17,22 +33,7 @@
 			}
 		]
 	},
-	{
-		"title": "postgres-express",
-		"summery": "A nodejs based REST API boilerplate using postgres and express with TDD;",
-		"images": [
-			"/img/projects/resume-1.png"
-		],
-		"live_link": "https://github.com/satyamyadav/postgres-express",
-		"code_link": "https://github.com/satyamyadav/postgres-express",
-		"details": [
-			{
-				"frameworks": "express, tabel",
-				"db": "postgreSQL",
-				"TDD": "mocha, chai"
-			}
-		]
-	},
+
 	{
 		"title": "len-den",
 		"summery": "An app to list and calculate lended money | An app without signup and profile. Html string of components appended, local storage is used to save data.",
