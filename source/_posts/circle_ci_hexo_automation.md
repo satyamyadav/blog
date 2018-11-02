@@ -17,4 +17,4 @@ This is a test post to confirm the circle ci integeration is working.
 
 The repo blog containing hexo site is responsible for containg and building 
 site and then build is pushed to satyamyadav.github.io to be served on github pages, the flow is achieved via 
-circleci and this post is written on gihub directly.
+circleci and this post is written on github directly.
