@@ -12,10 +12,16 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://satyamyadav.github.io
+url: https://satyamyadav.info
 root: /
 permalink: post/:title/
 permalink_defaults:
+
+# Include/Exclude Files/Folders
+exclude:
+  - .DS_Store
+  - themes/**/webpack
+  - themes/**/node_modules
 
 # Directory
 source_dir: source
