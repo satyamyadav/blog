@@ -1,6 +1,5 @@
 ---
 title: Integerating Circle ci with hexo and gh pages. 
-cover: https://d3r49iyjzglexf.cloudfront.net/illustrations/illu_forrester-report-f9e88b4949ef6ef8c66717fa01a8107f8083516db516d7d93150f578ab35d476.png
 date: 
 categories:
   - code
