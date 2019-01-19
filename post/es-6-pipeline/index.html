@@ -1,0 +1,427 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/icons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="img/icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="img/icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/icons/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="img/icons/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="img/icons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="img/icons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="img/icons/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="img/icons/favicon-128.png" sizes="128x128">
+  <meta name="application-name" content="&nbsp;">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="img/icons/mstile-144x144.png">
+  <meta name="msapplication-square70x70logo" content="img/icons/mstile-70x70.png">
+  <meta name="msapplication-square150x150logo" content="img/icons/mstile-150x150.png">
+  <meta name="msapplication-wide310x150logo" content="img/icons/mstile-310x150.png">
+  <meta name="msapplication-square310x310logo" content="img/icons/mstile-310x310.png">
+
+  
+  <meta name="google-site-verification" content="N3tLo4DkemKMc6DXU9pIfh9auQjhV7DolwbTGfY_Ejo"> 
+  
+
+  
+
+  
+  <title>understanding es6 pipeline O|&gt;erator | Satyam Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Pipeline operator |&amp;gt; is a readable way of writing chained functions. The operator is currently at stage 1 of tc39 proposal (ESNext Proposal).">
+<meta name="keywords" content="lodash,es6,javascript,experimental,ESNext">
+<meta property="og:type" content="article">
+<meta property="og:title" content="understanding es6 pipeline O|&gt;erator">
+<meta property="og:url" content="https://satyamyadav.info/blog/post/es-6-pipeline/index.html">
+<meta property="og:site_name" content="Satyam Yadav">
+<meta property="og:description" content="Pipeline operator |&amp;gt; is a readable way of writing chained functions. The operator is currently at stage 1 of tc39 proposal (ESNext Proposal).">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-19T20:02:34.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="understanding es6 pipeline O|&gt;erator">
+<meta name="twitter:description" content="Pipeline operator |&amp;gt; is a readable way of writing chained functions. The operator is currently at stage 1 of tc39 proposal (ESNext Proposal).">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Satyam Yadav" type="application/atom+xml">
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/css/hexo.css">
+  <link rel="stylesheet" href="/blog/css/open-iconic-bootstrap.css">
+
+<style media="screen">
+    .blog-post img {
+      width: 100%;
+      max-height: 350px;
+    }
+  </style>
+
+</head>
+</html>
+<body>
+  
+
+
+<nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm pt-3">
+  <div class="container pl-2">
+
+    
+      <a class="navbar-brand p-0" href="/blog/" id="logo">
+        <img class="" height="50" src="/blog/img/logo.png" alt="">
+      </a>
+      
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto">
+        
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/">HOME</a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/projects">PROJECTS</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/blog/about">ABOUT</a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/archives">ARCHIVES</a>
+          </li>
+          
+      </ul>
+      </div>
+
+      
+        <a id="nav-rss-link" class="navbar-text" href="/blog/atom.xml" title="RSS Feed"></a>
+      
+          
+  </div>
+</nav>
+
+  <div id="panel" class="pt-5">
+    
+  <section class="">
+    
+
+  
+
+    <div class="card border-0 bg-light">
+      <div class="pt-5 pb-5">
+        <div class="container text-center">
+          <div class="row">
+    
+            <div class="col-12">
+              <h2 class="font-weight-light d-none d-md-block  mt-3">
+                understanding es6 pipeline O|&gt;erator
+              </h2>
+              <h4 class="d-block d-md-none  mt-1">
+                understanding es6 pipeline O|&gt;erator
+              </h4>
+              <span class="small ml-3">
+                <a href="/blog/post/es-6-pipeline/" class="">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+              </span>
+            </div>
+            <div class="col-12 pt-1 ">
+              <p class="">
+                <i>
+                  - Satyam Yadav
+                </i>
+              </p>
+    
+              <div class="text-center">
+                
+
+    <a class=" tag o-link" href="/blog/categories/code/">code</a>
+
+
+                
+
+
+
+  <a class=" tag o-link" href="/blog/tags/ESNext/">ESNext</a><a class=" tag o-link" href="/blog/tags/es6/">es6</a><a class=" tag o-link" href="/blog/tags/experimental/">experimental</a><a class=" tag o-link" href="/blog/tags/javascript/">javascript</a><a class=" tag o-link" href="/blog/tags/lodash/">lodash</a>
+
+
+              </div>
+    
+    
+              <div class="text-center pt-4">
+                <div data-url="https://satyamyadav.info/blog/post/es-6-pipeline/" data-id="cjr3wgp6u00024pp2by92sce2" class="article-share-link btn btn-outline-secondary btn-sm text-uppercase">
+                  Share
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </section>
+
+  <section class="pt-5 bg-default">
+    <div class="container pt-md-5">
+      <div class="row">
+  
+        
+        
+          <div class="col-12 col-md-8 pr-md-3">
+            <div class="row">
+            <article id="post-es-6-pipeline" class="col article-type-post" itemscope="" itemprop="blogPost">
+  <div class="blog-post">
+    
+    <div class="article-entry" itemprop="articleBody">
+      <p>Pipeline operator <code>|&gt;</code> is a readable way of writing chained functions. The operator is currently at stage 1 of tc39 proposal (ESNext Proposal).</p>
+<a id="more"></a>
+<p>The pipeline operator provides a syntactic sugar to call a function with single argument.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">expression |&gt; <span class="function"><span class="keyword">function</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">//<span class="title">or</span> <span class="title">call</span> <span class="title">multiple</span> <span class="title">functions</span> <span class="title">as</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">expression</span> |&gt; <span class="title">fn1</span> |&gt; <span class="title">fn2</span> |&gt; <span class="title">fn3</span></span></span><br></pre></td></tr></table></figure>
+<p>each function gets the result from its preceeding function as input and passes the result to next function i.e. input (argument/expression) is piped through and complete pipeline.</p>
+<p>Let’s look at some examples :</p>
+<p>Define the <code>double</code> and <code>increment</code> functions to use in examples.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> double = <span class="function"><span class="params">n</span> =&gt;</span> n * <span class="number">2</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> increment = <span class="function"><span class="params">n</span> =&gt;</span> n + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>The function(argument) way:</strong></p>
+<p>We can call functions as <code>g(f(n))</code> to get our input parameter <code>n</code> through the functions <code>f(n)</code> and <code>g(m)</code>.<br><em>OR by taking intermediate value as a variable:</em><br><code>var a = f(n);</code><br><code>result = g(a):</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">double(increment(double(<span class="number">10</span>)));  <span class="comment">//42</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// OR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = double(<span class="number">10</span>); <span class="comment">//20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = increment(a); <span class="comment">//21</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = double(b); <span class="comment">//42</span></span><br></pre></td></tr></table></figure>
+<p><strong>using lodash</strong></p>
+<p>Using lodash we can achieve the same (chaining) by using <code>_.chain()</code> for inbuilt methods or by <code>_.mixin()</code> for using custom methods or by <code>_.flow()</code> (functional compositions).</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _ = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// using lodash mixin</span></span><br><span class="line"></span><br><span class="line">_.mixin(&#123;<span class="string">'double'</span>: double, <span class="string">'increment'</span>: increment&#125;);</span><br><span class="line"></span><br><span class="line">_(<span class="number">10</span>).double().increment().double().value(); <span class="comment">//42</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// using lodash flow</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> doubleIncrementDouble = _.flow([double, increment, double]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = doubleIncrementDouble(<span class="number">10</span>) <span class="comment">//42</span></span><br></pre></td></tr></table></figure>
+<p><strong>es5 utility function</strong></p>
+<p>To write a utility function to do the same for us, we need to define a function (<code>pipe</code>) that takes a list (array) of methods (functions) and returns a function which takes only one parameter and reduces the functions array from its parent scope initializing with its parameter.<br>Now as we have a wrapper function <code>pipe</code> we can call it as<br><code>pipe([fn1, fn2, f3 ...fm])(n)</code><br>or<br> we can define different pipes taking list of functions<br> <code>var pipeline1 = [double, increment]</code><br> and then call it as<br> <code>pipeline1(a)</code>.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  pipeline utility</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pipe = <span class="function"><span class="keyword">function</span> (<span class="params">functionList</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> functionList.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">value, func</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> func(value)</span><br><span class="line">    &#125;, data);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pipe([double, increment, double])(<span class="number">10</span>); <span class="comment">//42</span></span><br></pre></td></tr></table></figure>
+<p><strong>ESNext pipeline operator</strong><br><code>10 |&gt; double |&gt; increment |&gt; double;</code> </p>
+<p>As we often need to transform some data or clean data for some usages like data visualizations , tabular representations, payload generations etc. we need a utility or use a library like lodash for doing that part only, it is good to have feature in language itself as similar to <a href="https://en.wikibooks.org/wiki/F _Sharp_Programming/Higher_Order_Functions#The_.7C.3E_Operator" target="_blank" rel="noopener">F#</a>,  <a href="http://caml.inria.fr/pub/docs/manual-ocaml/libref/Pervasives.html#VAL%28|%3E%29" target="_blank" rel="noopener">OCaml</a>,  <a href="https://www.safaribooksonline.com/library/view/programming-elixir/9781680500530/f_0057.html" target="_blank" rel="noopener">Elixir</a>,  <a href="https://edmz.org/design/2015/07/29/elm-lang-notes.html" target="_blank" rel="noopener">Elm</a>,  <a href="http://docs.julialang.org/en/release-0.4/stdlib/base/?highlight=|%3E#Base.|%3E" target="_blank" rel="noopener">Julia</a>,  <a href="https://docs.hhvm.com/hack/operators/pipe-operator" target="_blank" rel="noopener">Hack</a>, <a href="http://livescript.net/#piping" target="_blank" rel="noopener">LiveScript</a>,  as well as UNIX pipes.</p>
+<p>Also as in proposal :</p>
+<p>…you can use an arrow function to handle multi-argument functions.</p>
+<hr>
+<p><code>Thank You !!</code></p>
+<blockquote>
+<p> Your thoughts , suggestions or corrections are most welcome !!, Please feel free to share them below.<br>  will test some more complex examples and will share If I found anything interesting.</p>
+</blockquote>
+<p>References :</p>
+<p>  <a href="https://github.com/tc39/proposal-pipeline-operator" target="_blank" rel="noopener">ESNext Proposal tc39</a></p>
+<p>  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator" target="_blank" rel="noopener">MDN web docs</a></p>
+<p>  <a href="https://gist.githubusercontent.com/satyamyadav/27723528a35e3d7b4cd80b198ec8f792/raw/e7eb9d3e80ea454d54f17738c0343a9f911d188a/pielinejs.js" target="_blank" rel="noopener">Raw code</a></p>
+<p><em>Gist</em></p>
+<script src="https://gist.github.com/satyamyadav/27723528a35e3d7b4cd80b198ec8f792.js"></script>
+
+
+
+    </div>
+ 
+  </div>
+</article>
+
+
+<div class="col-12">
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+</div>  
+
+
+
+  
+            </div>
+          </div>
+          <div class="col-12 col-md-4 pl-md-6">
+            <div class="mb-5" id="search-form-wrap">
+  <form class="form-inline my-2 my-lg-0" action="//google.com/search" method="get" accept-charset="UTF-8">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form-input form-control-sm w-100 o"><input type="search" name="q" class="search-form-input form-control-sm w-100 o-input" placeholder="Search"><input type="hidden" name="sitesearch" value="https://satyamyadav.info/blog"></form>
+  </form>
+</div>
+
+
+    
+  <div class="mb-5">
+    <div class="">
+      <h4 class="">
+        Recent Posts
+      </h4>
+      <ul class="list-group list-group-flush mt-3">
+      
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-2/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-2/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.547Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-3/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-3/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.547Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/circle_ci_hexo_automation/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Integerating Circle ci with hexo and gh pa...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/circle_ci_hexo_automation/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/es-6-pipeline/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            understanding es6 pipeline O|>erator
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/es-6-pipeline/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-1/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-1/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+      </ul>
+
+
+    </div>
+  </div>
+
+
+  
+    
+  <div class="text-sencondary">
+    <div class="">
+      <h4 class="card-title">Archives</h4>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+          </div>
+        
+        
+  
+        </div>
+      </div>
+    </section>
+
+  </div>
+   
+  <div class="container pt-5">
+    <nav class="nav nav-pills justify-content-center text-white">
+     
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://github.com/satyamyadav" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/github.svg">
+      </a>
+       
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://www.linkedin.com/in/satyamyadav3/" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/linkedin.svg">
+      </a>
+       
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://twitter.com/" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg">
+      </a>
+      
+    </nav>
+  </div>
+
+    
+
+<footer class="footer pb-5">
+  <div class="container text-muted text-center pt-3">
+    &copy;
+    2019
+    Satyam Yadav
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'satyamyadv';
+  
+  var disqus_url = 'https://satyamyadav.info/blog/post/es-6-pipeline/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/blog/js/hexo.js"></script>
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  <div class="article-share-box dropdown-menu dropdown-menu-right">
+  </div>
+
+</body>
+</html>

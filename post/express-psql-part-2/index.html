@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="img/icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/icons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="img/icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="img/icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/icons/apple-touch-icon-152x152.png">
+  <link rel="icon" type="image/png" href="img/icons/favicon-196x196.png" sizes="196x196">
+  <link rel="icon" type="image/png" href="img/icons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="img/icons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="img/icons/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="img/icons/favicon-128.png" sizes="128x128">
+  <meta name="application-name" content="&nbsp;">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="img/icons/mstile-144x144.png">
+  <meta name="msapplication-square70x70logo" content="img/icons/mstile-70x70.png">
+  <meta name="msapplication-square150x150logo" content="img/icons/mstile-150x150.png">
+  <meta name="msapplication-wide310x150logo" content="img/icons/mstile-310x150.png">
+  <meta name="msapplication-square310x310logo" content="img/icons/mstile-310x310.png">
+
+  
+  <meta name="google-site-verification" content="N3tLo4DkemKMc6DXU9pIfh9auQjhV7DolwbTGfY_Ejo"> 
+  
+
+  
+
+  
+  <title>Building a REST-API with Expressjs, Tabel and Postgres | Part-2 | Satyam Yadav</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Setting up database and orm.  Tabel : A simple orm for PostgreSQL, built over knex.js, which works with simple javascript objects and arrays. More of a table gateway that can behave like an orm, and s">
+<meta name="keywords" content="es6,javascript,express,tabel,postgres,REST API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building a REST-API with Expressjs, Tabel and Postgres | Part-2">
+<meta property="og:url" content="https://satyamyadav.info/blog/post/express-psql-part-2/index.html">
+<meta property="og:site_name" content="Satyam Yadav">
+<meta property="og:description" content="Setting up database and orm.  Tabel : A simple orm for PostgreSQL, built over knex.js, which works with simple javascript objects and arrays. More of a table gateway that can behave like an orm, and s">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-19T20:02:34.547Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Building a REST-API with Expressjs, Tabel and Postgres | Part-2">
+<meta name="twitter:description" content="Setting up database and orm.  Tabel : A simple orm for PostgreSQL, built over knex.js, which works with simple javascript objects and arrays. More of a table gateway that can behave like an orm, and s">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Satyam Yadav" type="application/atom+xml">
+  
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/css/hexo.css">
+  <link rel="stylesheet" href="/blog/css/open-iconic-bootstrap.css">
+
+<style media="screen">
+    .blog-post img {
+      width: 100%;
+      max-height: 350px;
+    }
+  </style>
+
+</head>
+</html>
+<body>
+  
+
+
+<nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm pt-3">
+  <div class="container pl-2">
+
+    
+      <a class="navbar-brand p-0" href="/blog/" id="logo">
+        <img class="" height="50" src="/blog/img/logo.png" alt="">
+      </a>
+      
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto">
+        
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/">HOME</a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/projects">PROJECTS</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/blog/about">ABOUT</a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="/blog/archives">ARCHIVES</a>
+          </li>
+          
+      </ul>
+      </div>
+
+      
+        <a id="nav-rss-link" class="navbar-text" href="/blog/atom.xml" title="RSS Feed"></a>
+      
+          
+  </div>
+</nav>
+
+  <div id="panel" class="pt-5">
+    
+  <section class="">
+    
+
+  
+
+    <div class="card border-0 bg-light">
+      <div class="pt-5 pb-5">
+        <div class="container text-center">
+          <div class="row">
+    
+            <div class="col-12">
+              <h2 class="font-weight-light d-none d-md-block  mt-3">
+                Building a REST-API with Expressjs, Tabel and Postgres | Part-2
+              </h2>
+              <h4 class="d-block d-md-none  mt-1">
+                Building a REST-API with Expressjs, Tabel and Postgres | Part-2
+              </h4>
+              <span class="small ml-3">
+                <a href="/blog/post/express-psql-part-2/" class="">
+  <time datetime="2019-01-19T20:02:34.547Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+              </span>
+            </div>
+            <div class="col-12 pt-1 ">
+              <p class="">
+                <i>
+                  - Satyam Yadav
+                </i>
+              </p>
+    
+              <div class="text-center">
+                
+
+    <a class=" tag o-link" href="/blog/categories/code/">code</a>
+
+
+                
+
+
+
+  <a class=" tag o-link" href="/blog/tags/REST-API/">REST API</a><a class=" tag o-link" href="/blog/tags/es6/">es6</a><a class=" tag o-link" href="/blog/tags/express/">express</a><a class=" tag o-link" href="/blog/tags/javascript/">javascript</a><a class=" tag o-link" href="/blog/tags/postgres/">postgres</a><a class=" tag o-link" href="/blog/tags/tabel/">tabel</a>
+
+
+              </div>
+    
+    
+              <div class="text-center pt-4">
+                <div data-url="https://satyamyadav.info/blog/post/express-psql-part-2/" data-id="cjr3wgp7000064pp2q6e3jaa1" class="article-share-link btn btn-outline-secondary btn-sm text-uppercase">
+                  Share
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    
+    
+  </section>
+
+  <section class="pt-5 bg-default">
+    <div class="container pt-md-5">
+      <div class="row">
+  
+        
+        
+          <div class="col-12 col-md-8 pr-md-3">
+            <div class="row">
+            <article id="post-express-psql-part-2" class="col article-type-post" itemscope="" itemprop="blogPost">
+  <div class="blog-post">
+    
+    <div class="article-entry" itemprop="articleBody">
+      <p>Setting up database and orm.  <a href="http://tabel.fractaltech.in/" target="_blank" rel="noopener">Tabel</a> : A simple orm for PostgreSQL, built over knex.js, which works with simple javascript objects and arrays. More of a table gateway that can behave like an orm, and scale back down to a table-gateway when needed.</p>
+<a id="more"></a>
+<p><strong>Install postgress</strong></p>
+<p>Set up  <code>postgres</code>  and <code>redis</code> on your system.</p>
+<p>A repository for helping in instalations. <a href="https://github.com/dg92/node-express-postgres-redis-starter-kit" target="_blank" rel="noopener">Link Here</a></p>
+<p>Postgres docs : <a href="https://www.postgresql.org/download/" target="_blank" rel="noopener">Link</a></p>
+<p>Redis docs: <a href="https://redis.io/download" target="_blank" rel="noopener">Link</a></p>
+<hr>
+<p><strong>Configure <a href="http://tabel.fractaltech.in/" target="_blank" rel="noopener">Tabel</a> ORM</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install config tabel pg</span><br><span class="line"></span><br><span class="line">mkdir config</span><br><span class="line"></span><br><span class="line">touch config/default.js</span><br></pre></td></tr></table></figure>
+<p>Copy config for orm from <a href="http://tabel.fractaltech.in/" target="_blank" rel="noopener">Tabel</a> docs and update db name, user and password. </p>
+<hr>
+<p><strong>Migrations</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mkdir migerations</span><br><span class="line"></span><br><span class="line">touch migrate.js</span><br></pre></td></tr></table></figure>
+<p>/migrate.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> migrate = <span class="built_in">require</span>(<span class="string">'tabel/lib/migrate'</span>);</span><br><span class="line"><span class="keyword">const</span> ormConfig = <span class="built_in">require</span>(<span class="string">'config'</span>);</span><br><span class="line"></span><br><span class="line">migrate(ormConfig);</span><br></pre></td></tr></table></figure>
+<p>After adding above content to migrate.js run following migerate commonds from base path:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node migrate.js make CreateUsersTable</span><br><span class="line">node migrate.js make CreatePostsTable</span><br></pre></td></tr></table></figure></p>
+<p>Now there should appear the migeration files in /migerations as &lt;TIME_STAMP&gt;_CreateUsersTable.js and &lt;TIME_STAMP&gt;__CreatePostsTable.js with content </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">up</span>(<span class="params">knex</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">down</span>(<span class="params">knex</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;up, down&#125;;</span><br></pre></td></tr></table></figure>
+<p>update these file contents then run<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node migrate.js latest</span><br></pre></td></tr></table></figure></p>
+<p>now we can verify it in psql it should show blank tables created :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">api_dev=<span class="comment"># \dt</span></span><br></pre></td></tr></table></figure>
+<p>List of relations               </p>
+<table>
+<thead>
+<tr>
+<th>Schema</th>
+<th>Name</th>
+<th>Type</th>
+<th>Owner</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>public</td>
+<td>knex_migrations</td>
+<td>table</td>
+<td>dev</td>
+</tr>
+<tr>
+<td></td>
+<td>public</td>
+<td>knex_migrations_lock</td>
+<td>table</td>
+<td>dev</td>
+</tr>
+<tr>
+<td></td>
+<td>public</td>
+<td>posts</td>
+<td>table</td>
+<td>dev</td>
+</tr>
+<tr>
+<td></td>
+<td>public</td>
+<td>users</td>
+<td>table</td>
+<td>dev</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><strong>Table Definitions</strong></p>
+<p>Define Tables, a single file is sufficient to define tables but we can have a break down table specific files (modules) for definition as follow:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir orm</span><br><span class="line">mkdir orm/tables</span><br><span class="line">touch orm/index.js</span><br><span class="line">mkdir orm/tables</span><br><span class="line">touch orm/tables/users.js</span><br><span class="line">touch orm/tables/posts.js</span><br></pre></td></tr></table></figure>
+<p>Add definition as in full config section of <a href="http://tabel.fractaltech.in/table-definitions.html#Full-Config" target="_blank" rel="noopener">tabel docs</a> for posts and users both.</p>
+<p>Example:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">orm</span>) </span>&#123;</span><br><span class="line">  orm.defineTable(&#123;</span><br><span class="line">    name: <span class="string">'users'</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">      key: <span class="string">'id'</span>,</span><br><span class="line">      autoId: <span class="literal">false</span>,</span><br><span class="line">      perPage: <span class="number">25</span>,</span><br><span class="line">      timestamps: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    scopes: &#123;&#125;,</span><br><span class="line">    joints: &#123;</span><br><span class="line">      joinComments() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.joinPosts().join(</span><br><span class="line">          <span class="string">'comments'</span>,</span><br><span class="line">          <span class="string">'comments.post_id'</span>,</span><br><span class="line">          <span class="string">'='</span>,</span><br><span class="line">          <span class="string">'posts.id'</span></span><br><span class="line">        );</span><br><span class="line">      &#125;,</span><br><span class="line">      joinPosts() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.join(<span class="string">'posts'</span>, <span class="string">'users.id'</span>, <span class="string">'='</span>, <span class="string">'posts.author_id'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    relations: &#123;</span><br><span class="line">      posts: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.hasMany(<span class="string">'posts'</span>, <span class="string">'author_id'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>and require the two definitions in orm/tables/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">orm</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'./users'</span>)(orm);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">'./posts'</span>)(orm);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>now require the tables in orm/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Tabel = <span class="built_in">require</span>(<span class="string">'tabel'</span>);</span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'config'</span>);</span><br><span class="line"><span class="keyword">const</span> orm = <span class="keyword">new</span> Tabel(config);</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./tables'</span>)(orm);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = orm.exports;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Seeds</strong></p>
+<p>To seed some sample (fake data):</p>
+<figure class="highlight irpf90"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir seeds</span><br><span class="line"><span class="keyword">touch</span> seeds/post.js</span><br><span class="line"><span class="keyword">touch</span> seeds/user.js</span><br></pre></td></tr></table></figure>
+<p>In seed files <code>insert</code> some data into table using tabel orm methods according to schema in migerations , I have used <a href="https://github.com/marak/Faker.js/" target="_blank" rel="noopener">Faker.js</a>.</p>
+<p><code>npm install faker</code></p>
+<p>Example Posts :</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> faker = <span class="built_in">require</span>(<span class="string">'faker'</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; table &#125; = <span class="built_in">require</span>(<span class="string">'../orm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> seed = <span class="built_in">Promise</span>.all(</span><br><span class="line">  [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> table(<span class="string">'posts'</span>).insert([</span><br><span class="line">      &#123;</span><br><span class="line">        id: faker.random.uuid(),</span><br><span class="line">        author_id: faker.random.uuid(),</span><br><span class="line">        title: faker.lorem.sentence(),</span><br><span class="line">        body: faker.lorem.sentence(),</span><br><span class="line">        slug: faker.lorem.sentence().replace(<span class="regexp">/ /g</span>, <span class="string">'-'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    ]);</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">seed.then(<span class="function"><span class="params">d</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'seeded Posts'</span>, d);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>Server</strong></p>
+<p>Now we make an app (express app) and define routes. Before that let’s verify if everything is working now by logging query results to console.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir server</span><br><span class="line">touch index.js</span><br></pre></td></tr></table></figure>
+<p>Adding a query and console log for the result in /server/index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; table &#125; = <span class="built_in">require</span>(<span class="string">'../orm'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> posts = table(<span class="string">'posts'</span>).all();</span><br><span class="line"></span><br><span class="line">posts.then(<span class="function"><span class="params">d</span> =&gt;</span> <span class="built_in">console</span>.log(d));</span><br></pre></td></tr></table></figure>
+<p>Now run <code>node sever</code> from command from root of project. It should print the list of posts we have seeded in posts table.</p>
+<hr>
+<p>Next we need to define an express app and add test for routes and then add routes and controllers for creating end points for REST API.</p>
+<p><code>CODE:</code> <a href="https://github.com/satyamyadav/postgres-express/tree/v0.1.0-1" target="_blank" rel="noopener">https://github.com/satyamyadav/postgres-express/tree/v0.1.0-1</a></p>
+<hr>
+<p><code>Thank You !!</code></p>
+
+    </div>
+ 
+  </div>
+</article>
+
+
+<div class="col-12">
+  <section id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+</div>  
+
+
+
+  
+            </div>
+          </div>
+          <div class="col-12 col-md-4 pl-md-6">
+            <div class="mb-5" id="search-form-wrap">
+  <form class="form-inline my-2 my-lg-0" action="//google.com/search" method="get" accept-charset="UTF-8">
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form-input form-control-sm w-100 o"><input type="search" name="q" class="search-form-input form-control-sm w-100 o-input" placeholder="Search"><input type="hidden" name="sitesearch" value="https://satyamyadav.info/blog"></form>
+  </form>
+</div>
+
+
+    
+  <div class="mb-5">
+    <div class="">
+      <h4 class="">
+        Recent Posts
+      </h4>
+      <ul class="list-group list-group-flush mt-3">
+      
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-2/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-2/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.547Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-3/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-3/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.547Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/circle_ci_hexo_automation/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Integerating Circle ci with hexo and gh pa...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/circle_ci_hexo_automation/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/es-6-pipeline/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            understanding es6 pipeline O|>erator
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/es-6-pipeline/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+        <li class="list-group-item border-0 pl-0 pr-0 bg-transparent">
+          <a href="/blog/post/express-psql-part-1/">
+
+            <img height="80" width="80" class="bg-light rounded float-left mr-3" src="" alt="">
+            Building a REST-API with Expressjs, Tabel ...
+
+          </a>
+          <div class="small">
+            <a href="/blog/post/express-psql-part-1/" class="text-secondary">
+  <time datetime="2019-01-19T20:02:34.543Z" itemprop="datePublished">Jan 19th 19</time>
+</a>
+
+
+          </div>
+
+        </li>
+        
+      </ul>
+
+
+    </div>
+  </div>
+
+
+  
+    
+  <div class="text-sencondary">
+    <div class="">
+      <h4 class="card-title">Archives</h4>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+          </div>
+        
+        
+  
+        </div>
+      </div>
+    </section>
+
+  </div>
+   
+  <div class="container pt-5">
+    <nav class="nav nav-pills justify-content-center text-white">
+     
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://github.com/satyamyadav" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/github.svg">
+      </a>
+       
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://www.linkedin.com/in/satyamyadav3/" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/linkedin.svg">
+      </a>
+       
+      <a class="nav-link p-3 rounded-circle m-1 bg-light" href="https://twitter.com/" target="__blank">
+        <img width="32" src="https://unpkg.com/simple-icons@latest/icons/twitter.svg">
+      </a>
+      
+    </nav>
+  </div>
+
+    
+
+<footer class="footer pb-5">
+  <div class="container text-muted text-center pt-3">
+    &copy;
+    2019
+    Satyam Yadav
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'satyamyadv';
+  
+  var disqus_url = 'https://satyamyadav.info/blog/post/express-psql-part-2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/blog/js/hexo.js"></script>
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  <div class="article-share-box dropdown-menu dropdown-menu-right">
+  </div>
+
+</body>
+</html>
